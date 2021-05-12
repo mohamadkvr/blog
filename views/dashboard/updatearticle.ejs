@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background-image: linear-gradient(to right, #ff5722 , #ff9800 );
+        }
+        .content{
+            width: 1200px;
+
+            background-color: aliceblue;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        #form{
+            font-size: 20px !important;
+            font-style: italic;
+            font-weight:500;
+    
+      
+
+        }
+        #form h3{
+            text-align: center;
+            color: #ff5722;
+            font-size: 30px !important;
+        }
+        #Textarea1{
+            height: 50px;
+        }
+        #Textarea2{
+            height: 200px;
+        } 
+        #alert{
+
+            margin-top: 50px;
+        }
+        .dis-none{
+            display: none;
+        }
+        #text{
+          height: 200px;
+        }
+    </style>
+    <title>Update Article</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard">back to dashboard</a>
+            </li>
+         
+         
+          </ul>
+    
+        </div>
+      </nav>
+
+
+            <div class="content">
+
+     
+                <form  id="form" > 
+                    <h3>Update Article</h3>
+                    <div class="form-group">
+                      <label for="exampleFormControlInput1">title</label>
+                      <input type="text" class="form-control"  id="title" name="title" value="<%= article.title %>" data = "<%= article._id %>">
+                    </div>
+                    <div class="form-group">
+                      <label for="Textarea1">description</label>
+                      <textarea class="form-control" id="description" rows="3" name="description" ><%= article.description %></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="Textarea2">text</label>
+                        <textarea class="form-control" id="text" rows="3" name="text" >
+                          <% for (let i of article.text) {%>
+                            <%= i.text1 %>
+                <% } %>            
+                        </textarea>
+                      </div>
+                      <label for="img-article">update avatar article</label>
+                      <input type="file" id="img-article" name="articleavatar" />
+        
+                      <br>
+                 <input type="button"  class="btn btn-primary mt-5" value="update" id="update"/>
+                 <div class="alert alert-danger dis-none" role="alert" id="alert">
+                  </div>
+                  <div class="alert alert-success dis-none" role="alert" id="alert2">
+                  </div>
+                  </form>
+            </div>
+  
+      <script src="/ckeditor/ckeditor.js"></script>
+      <script>
+       let data =  CKEDITOR.replace("text",{
+       filebrowserUploadUrl: "/auth/uploadimagearticle"
+     })
+     
+     $("#update").click(function(e){
+
+let fileExist = ''
+          const form = new FormData();
+        let file = $("#img-article")[0].files;
+ if (file[0]) {
+  fileExist = "ok"
+ }
+        
+console.log(fileExist);
+
+            form.append('title', $("#title").val())
+            form.append('text', data.getData())       
+            form.append('description', $("#description").val())   
+            form.append('file',fileExist)
+            form.append('id',$('#title').attr('data')) 
+            form.append('articleavatar', file[0])
+         
+
+            $.ajax({
+                type: "POST",
+                url: "/auth/updatearticle",
+                data: form,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                  $("#alert2").removeClass("dis-none").html(`updated successfully`)
+           setTimeout(()=>{
+           window.location.href="http://localhost:3000/dashboard"
+           },2000)
+                },
+                error: function(err) {
+                  console.log(err)
+                  $("#alert").removeClass("dis-none").html(`${err.responseJSON.err}`)
+           setTimeout(()=>{
+            $("#alert").addClass("dis-none")
+           },3000)
+                
+                }
+            });
+
+    
+        })
+  
+      </script>
+</body>
+</html>
+
+
+
+<!-- 
+$("#update").click(function(){
+  let myDataArray = $("#form").serializeArray();
+    let myData = {}
+    $.map(myDataArray, function(n,i){
+      myData[n['name']] = n['value'];
+  })
+
+    $.ajax({
+        type:'post',
+        url:"/auth/updatearticle",
+        data: {
+          title : myData.title,
+          description : myData.description,
+          text: data.getData(),
+          id: $("#title").attr("data"),
+        },
+        success:(data =>{
+  window.location.href = `http://localhost:3000/dashboard//owner/article/${data.id}`;
+        }),
+        error:((err) =>{
+     
+  console.log(err)
+
+
+
+        })
+    }) -->

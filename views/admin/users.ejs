@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+    <title>users</title>
+    <style>
+                body {
+        text-decoration: none !important;
+        }
+        #navbarNav a{
+   
+
+            font-size: 20px;
+            font-style: italic;
+            color: #ff5722;
+        }
+        #navbarNav a:hover{
+            color: #ff9800;
+        }
+        header{
+            background-image: linear-gradient(to right, #ff5722 , #ff9800 );
+        }
+    </style>
+</head>
+<body>
+    <header id="portfolio">
+              
+        <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
+        <div class="w3-container">
+
+        <div class="w3-section w3-bottombar w3-padding-16">
+          <button class="w3-button w3-white"><a href="/home" class="headera">Home</a> </button>
+          <button class="w3-button w3-white w3-hide-small"><a href="/home/about" class="headera">About</a> </button>
+          <button class="w3-button w3-white w3-hide-small"><a href="/dashboard" class="headera">back to dashboard</a> </button>
+        </div>
+        </div>
+      </header>
+   
+
+
+
+<!-- include header -->
+    <!-- main -->
+    <main id="main">
+        <div class="container">
+     
+            <!-- from handling -->
+            <form  method="post">
+            <table class="table">
+               <thead class="thead-dark">
+                  <tr>
+                      <th>row</th>
+                      <th>firstName</th>
+                      <th>lastName</th>
+                      <th>userName</th>
+                      <th>email</th>
+                      <th>phone number</th>
+                      <th>role</th>
+                      <th>Actions</th>
+           
+  
+                  </tr>
+               </thead>
+               <tbody>
+                <% for (let i = 0; i < users.length; i++) {%>
+                    <tr>
+                        <td><%= i + 1 %></td>
+                        <td><%= users[i].firstName %></td>
+                        <td><%= users[i].lastName %></td>
+                        <td><%= users[i].userName %></td>
+                        <td><%= users[i].email %></td>
+                        <td><%= users[i].phone %></td>
+                        <td><%= users[i].role %></td>
+                        <td>
+                              <a class="btn border-shadow update reset-id" data="<%= users[i]._id %>">
+                                <i class='fas fa-key' style='font-size:15px' title="change password this user" ></i></span>
+                              </a>
+                              <a  value = "" class="btn border-shadow delete" data="<%= users[i]._id %>">
+                               <span class="text-gradient" title="delete this user with his articles"><i class="fas fa-times icon"></i></span>
+                              </a>
+                        </td>
+                        
+                    </tr> 
+                
+                <% } %>
+    
+               </tbody>
+            </table>
+            </form>
+            <!-- /from handling -->
+        </div>
+      </main>
+
+      <!-- /main -->
+<!-- include footer -->
+<script>
+   $(".delete").click(function(){
+
+         let id = $(this).attr("data");
+         let result = confirm("Are you sure do you want to delete this item?");
+ 
+         if(result){
+            $.ajax({
+        type:'delete',
+        url:"/admin/deleteuser",
+        data: {
+          id
+        },
+        success:(data =>{
+            console.log(data)
+  window.location.href = `http://localhost:3000/admin/users`;
+        }),
+        error:((err) =>{
+     
+  console.log(err)
+
+
+
+        })
+    })
+         }
+
+    })
+   
+    $(".reset-id").click(function(){
+
+let id = $(this).attr("data");
+let result = confirm("Are you sure do you want to reset password this user?");
+
+
+if(result){
+   $.ajax({
+type:'post',
+url:"/admin/resetpass",
+data: {
+ id
+},
+success:(data =>{
+       alert(data.success);
+}),
+error:((err) =>{
+
+console.log(err)
+
+
+
+})
+})
+}
+
+})
+
+</script>
+</body>
+</html>

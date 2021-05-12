@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+    
+    <title>article</title>
+
+    <style>
+        body {
+        background-image: linear-gradient(to right, #ff5722 , #ff9800 );
+        text-decoration: none !important;
+        }
+        #navbarNav a{
+            font-size: 20px;
+            font-style: italic;
+            color: #ff5722;
+        }
+        #navbarNav a:hover{
+            color: #ff9800;
+        }
+        .content{
+            width: 800px;
+            padding: 60px;
+            background-color: aliceblue;
+            margin:50px auto;
+            overflow: hidden;
+            text-align: center;
+        }
+        .content h1{
+            margin: 40px auto;
+          
+        }
+        .text{
+            font-family: tahoma;
+            font-size:18px;
+            text-align: justify;
+         
+
+        }
+        .img{
+            margin-bottom:20px ;
+        }
+        #portfolio{
+            background-color:white !important;
+        }
+        nav a{
+            text-decoration: none;
+        }
+        .btn-m{
+            margin-top: 20px !important;
+
+        }
+        .btn-m a:hover{
+       color:#ff5722;
+            text-decoration: none;
+        }
+        
+.dis-none{
+    display: none
+}
+.comments{
+    width: 70%;
+
+    margin-top: 10px;
+    background-color: white;
+padding:10px  40px;
+    border-radius: 10px;
+    margin-left: 161px;
+    margin-bottom: 20px;
+
+}
+.comments h2{
+    font-style: italic;
+    color:#ff5722
+}
+.comment-content{
+    margin-top: 10px;
+    width: 100%;
+
+    background-image: linear-gradient(to right, #ff5722 , #ff9800 );
+    border-radius: 10px;
+    display: flex;
+    padding: 10px;
+    justify-content:space-between
+
+}
+.img{
+    width: 10%;
+    background-color: #ff5722;
+ 
+}
+.img img {
+    width: 100%;
+    height: 80px;
+    border-radius: 50%;
+}
+.textco{
+    width: 88%;
+
+    background-color: #f8b05d;
+    border-radius:10px ;
+    padding: 10px;
+    text-align: justify;
+}
+.username{
+    margin-left:2px;
+    margin-top: 7px;
+    color: white;
+}
+.date{
+    margin-left:2px;
+
+    color: rgb(255, 255, 255);
+    font-style: italic;
+}
+.pagea{
+    margin-left:600px !important;
+}
+.comment-btn{
+       color: white;
+       margin-left: 15px;
+}
+    </style>
+</head>
+<body>
+ 
+    <% if (!error) {%>
+
+           
+        <nav class="w3-sidebar w3-collapse w3-white w3-animate-left font" style="z-index:3;width:300px;" id="mySidebar"><br>
+            <div class="w3-container">
+                <h1><b>information</b> </h1>
+                <hr>
+          <div class="info">
+              <h4>title :<span><%= article.title %></span> </h4>
+              <h4>author :<span><%= article.userId.userName %></span> </h4>
+              <h4>createdAt :<span><%= new Date (article.date).getFullYear() %>/<%=  new Date (article.date).getMonth() %>/<%=  new Date (article.date).getDate()  %></span> </h4>
+          </div>
+            <div class="btn btn-primary btn-m" >
+              <a href="/dashboard/owner/article/update/<%= article._id %>" >Update Article</a> 
+            </div>
+         
+              <div class="btn btn-danger btn-m" id="delete">
+                <a href=""  >Delete This Article</a> 
+              </div>
+          </nav>
+          
+          <!-- Overlay effect when opening sidebar on small screens -->
+          <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+          
+          <!-- !PAGE CONTENT! -->
+          <div class="w3-main" style="margin-left:300px">
+          
+            <!-- Header -->
+            <header id="portfolio">
+              
+              <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
+              <div class="w3-container">
+  
+              <div class="w3-section w3-bottombar w3-padding-16">
+                <button class="w3-button w3-white"><a href="/home" class="headera">Home</a> </button>
+                <button class="w3-button w3-white w3-hide-small"><a href="/home/about" class="headera">About</a> </button>
+                <button class="w3-button w3-white w3-hide-small"><a href="/dashboard" class="headera">back to dashboard</a> </button>
+              </div>
+              </div>
+            </header>
+            
+   
+
+          <div class="container">
+                      <div class="content">
+
+                        <h1><%= article.title %></h1>
+                        <div class="text">
+                            <p> <% for(let i of article.text) {%>
+                                <%- i.text1 %>
+                                <% } %>
+                            </p>
+                        </div>
+
+                      </div>
+          </div>
+
+    <% } %>
+
+    <% if(comments.length > 0) { %>
+        <div class="comments">
+        <h2>Comments</h2>
+        <% for (let i of comments) {%>
+            <div class="comment-content">
+                <div class="img"  ><img  src="
+                    <% if(i.userId.avatar)  {%>
+                        /img/avatar/<%= i.userId.avatar %>
+                    <% }else  {%>
+                        /img/avatar/defult.png
+                    <% } %>
+                                            
+                    " alt="">
+                <p class="username"><%= i.userId.userName  %> </p>
+                <p class="date"> <span><%=  new Date (i.date).getFullYear() %>/<%=  new Date (i.date).getMonth() %>/<%=  new Date (i.date).getDate() %></span>  </p>
+           
+            </div>
+                <div class="textco">
+                    <p><%= i.text %></p>
+                </div>
+           </div>
+          <% } %>
+             
+</div>
+    <% } %>
+    <script>
+        $("#delete").click(function(e){
+            
+                    e.preventDefault();
+                    let result = confirm("Are you sure?");
+                   if(result) {
+                    $.ajax({
+                type: "DELETE",
+                url: "/auth/deletearticle/<%= article._id %>",
+                success: function(response) {
+                  setTimeout(()=>{
+                    window.location.href = "http://localhost:3000/dashboard"
+                  },1000)
+                   },
+                error: function(err) {
+                    console.log(err);
+                }   
+            })
+        }
+        })
+    </script>
+</body>
+</html>

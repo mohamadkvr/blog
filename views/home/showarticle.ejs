@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<title>article</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "", sans-serif}
+.w3-bar,h1,button {font-family: "", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+body{
+  background-color: #f8b05d;
+}
+.nav{
+  font-style: italic;
+ background-image: linear-gradient(to right, #ff5722 , #ff9800 );
+}
+.main{
+    width: 100%;
+    margin-top: 70px;
+    display: flex;
+    justify-content: space-around;
+}
+.content{
+    width: 70%;
+    background-color: white;
+    padding:50px 150px;
+    border-radius:10px ;
+
+}
+.content h2{
+    text-align: center;
+    font-family: tahoma;
+    font-size: 40px;
+
+}
+.content img{
+    width:100%;
+    height: 300px;
+
+}
+.info{
+    width: 20%;
+    height: 240px;
+padding: 10px;
+    background-color: white;
+    border-radius:10px ;
+ 
+}
+.info h4{
+
+              font-weight: bold;
+              font-style: italic;
+              color:#ff5722 ;
+
+}
+.info h4 span{
+    color: rgb(83, 81, 81);
+    padding-left: 10px;
+    
+}
+.info h2{
+    text-align: center;
+              font-size: 30px;
+              font-weight: bold;
+              font-style: italic;
+              color:#ff5722 ;
+              border-bottom: 2px solid rgb(141, 137, 137);
+         
+}
+.text p {
+   text-align: justify;
+   font-family: tahoma;
+}
+.btn{
+    padding:5px;
+    margin-bottom: 10px;
+    background-color: rgb(226, 58, 58);
+    border:none;outline: none;
+    border-radius: 5px;
+
+}
+.btn a {
+    text-decoration: none; 
+    color: white !important;
+}
+.form{
+    width: 70%;
+    margin-top: 10px;
+    background-color: white;
+padding:10px  40px;
+    border-radius: 10px;
+    margin-left: 371px;
+    margin-bottom: 20px;
+}
+.form h2{
+    font-style: italic;
+    color:#ff5722
+
+}
+#comment{
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    font-size: 19px;
+}
+.btn2{
+    padding: 7px;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    background-color: #11e23e;
+    color:white
+} 
+.btn2:hover{
+    cursor: pointer;
+    background-color: #108a2b;
+
+}
+.dis-none{
+    display: none
+}
+.comments{
+    width: 70%;
+
+    margin-top: 10px;
+    background-color: white;
+padding:10px  40px;
+    border-radius: 10px;
+    margin-left: 371px;
+    margin-bottom: 20px;
+
+}
+.comments h2{
+    font-style: italic;
+    color:#ff5722
+}
+.comment-content{
+    margin-top: 10px;
+    width: 100%;
+
+    background-image: linear-gradient(to right, #ff5722 , #ff9800 );
+    border-radius: 10px;
+    display: flex;
+    padding: 10px;
+    justify-content:space-between
+
+}
+.img{
+    width: 10%;
+    background-color: #ff5722;
+ 
+}
+.img img {
+    width: 100%;
+    height: 80px;
+    border-radius: 50%;
+}
+.textco{
+    width: 88%;
+
+    background-color: #f8b05d;
+    border-radius:10px ;
+    padding: 10px;
+    text-align: justify;
+}
+.username{
+    margin-left:17px;
+    margin-top: 7px;
+    color: white;
+}
+.date{
+    margin-left:17px;
+
+    color: rgb(255, 255, 255);
+    font-style: italic;
+}
+.pagea{
+    margin-left:600px !important;
+}
+.comment-btn{
+       color: white;
+       margin-left: 15px;
+}
+</style>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top nav">
+  <div class="w3-bar w3-card w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="/home" class="w3-bar-item w3-button w3-padding-large ">Home</a>
+    <a href="/home/about" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">About</a>
+    <a href="/dashboard" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">go to dashboard</a>
+   
+
+
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="/home" class="w3-bar-item w3-button w3-padding-large">Home </a>
+    <a href="/home/about" class="w3-bar-item w3-button w3-padding-large">About </a>
+    <a href="/dashboard" class="w3-bar-item w3-button w3-padding-large">Go To Dashboard</a>
+
+
+  
+
+  </div>
+</div>
+
+<!-- Header -->
+
+<div class="main">
+    <div class="info">
+        <h2>information</h2>
+      <h4>title :     <span><%= article.title %></span></h4> 
+      <h4>author:   <span><%= article.userId.userName %></span></h4>
+      <h4> created at:   <span><%=  new Date (article.date).getFullYear() %>/<%=  new Date (article.date).getMonth() %>/<%=  new Date (article.date).getDate() %></span></h4>      
+      <% if( role == "admin") {%>
+              <button class="btn btn-primary"><a href="/admin/deleteArt/<%= article._id %>">Delete This Article</a></button>
+      <% } %>                 
+</div>
+
+
+    <div class="content">
+             <div class="text">
+                 <p>
+                     <% for(let i of article.text) { %>
+                               <%- i.text1 %>
+                     <% } %>
+                 </p>
+             </div>
+    </div>
+
+</div>
+
+    <% if(comments.length > 0) { %>
+        <div class="comments">
+        <h2>Comments</h2>
+        <% for (let i of comments) {%>
+            <div class="comment-content">
+                <div class="img"  ><img  src="
+                    <% if(i.userId.avatar)  {%>
+                        /img/avatar/<%= i.userId.avatar %>
+                    <% }else  {%>
+                        /img/avatar/defult.png
+                    <% } %>
+                                            
+                    " alt="">
+                <p class="username"><%= i.userId.userName  %> </p>
+                <p class="date"> <span><%=  new Date (i.date).getFullYear() %>/<%=  new Date (i.date).getMonth() %>/<%=  new Date (i.date).getDate() %></span>  </p>
+                <% if( role == "admin") {%>
+                    <a class="btn comment-btn" data="<%= i._id %>">delete</a>
+                <% } %>
+            </div>
+                <div class="textco">
+                    <p><%= i.text %></p>
+                </div>
+           </div>
+          <% } %>
+             
+</div>
+    <% } %>
+  
+
+
+
+<div class="form">
+    <h2>Send Comment</h2>
+        <form id="form">
+                  <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+                  <button class="btn2 btn-primary" id ="sendBtn", data ="<%= article._id %>">send</button>
+        </form>
+        <div class="alert alert-success dis-none" role="alert" id="alert">
+            add comment successfully
+          </div>
+</div>
+ <!--  
+<%# page %>
+    <nav aria-label="Page navigation example ">
+        <ul class="pagination pagea">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+         <%# for (let i = 0; i < page; i++) {%>
+            
+            <li class="page-item"><a class="page-link" href="http://localhost:3000/home//article/<%# article._id %>?page=<%# i + 1 %>"><%# i  + 1%></a></li>
+         <%# } %>
+ 
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav> -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+      $("#sendBtn").click(function(e){
+       e.preventDefault();
+       $.ajax({
+         url: "/home/comment",
+         type: "POST",
+         data:{
+             text: $('#comment').val(),
+             id: $(this).attr("data")
+         },success: function(data) {
+                 $("#alert").removeClass('dis-none')
+                 setTimeout(function(){
+            
+                  window.location.href = `http://localhost:3000/home/article/${$("#sendBtn").attr("data")}`
+                 },2000)
+         },error: function(err) {
+            console.log();
+
+         }
+     })
+   })
+   $(".comment-btn").click(function(){
+
+let id = $(this).attr("data");
+let result = confirm("Are you sure do you want to delete this comment?");
+
+if(result){
+   $.ajax({
+type:'delete',
+url:"/admin/deletecomment",
+data: {
+ id
+},
+success:(data =>{
+   alert("deleted successfully")
+window.location.href = `${data.data}`;
+}),
+error:((err) =>{
+
+console.log(err)
+
+
+
+})
+})
+}
+
+})
+</script>
+</body>
+</html>

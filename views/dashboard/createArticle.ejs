@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background-image: linear-gradient(to right, #ff5722 , #ff9800 );
+        }
+        .content{
+            width: 1200px;
+
+            background-color: aliceblue;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        #form{
+            font-size: 20px !important;
+            font-style: italic;
+            font-weight:500;
+    
+      
+
+        }
+        #form h3{
+            text-align: center;
+            color: #ff5722;
+            font-size: 30px !important;
+        }
+        #Textarea1{
+            height: 50px;
+        }
+        #Textarea2{
+            height: 400px;
+        } 
+        #alert{
+
+            margin-top: 50px;
+        }
+        .dis-none{
+            display: none;
+        }
+        #text{
+          height: 500px;
+        }
+    </style>
+    <title>create article</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard">back to dashboard</a>
+            </li>
+         
+         
+          </ul>
+    
+        </div>
+      </nav>
+
+
+            <div class="content">
+
+     
+                <form  id="form" > 
+                    <h3>Create Article</h3>
+                    <div class="form-group">
+                      <label for="exampleFormControlInput1">title</label>
+                      <input type="text" class="form-control"  id="title" name="title" placeholder="enter your article title">
+                    </div>
+                    <div class="form-group">
+                      <label for="Textarea1">description</label>
+                      <textarea class="form-control" id="description" rows="3" name="description"  placeholder="description must be more than 30 charecter"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="Textarea2">text</label>
+                        <textarea class="form-control" id="text" rows="" name="text"></textarea>
+                      </div>
+                      <label for="img-article">add avatar article</label>
+
+                      <input type="file" id="img-article" name="articleavatar" />
+                      
+        
+                      <br>
+                 <input type="button" id="create" class="btn btn-primary mt-5" value="create" id="button"/>
+                 <div class="alert alert-danger dis-none" role="alert" id="alert">
+                  </div>
+                  <div class="alert alert-success dis-none" role="alert" id="alert2">
+                  </div>
+                  </form>
+            </div>
+  
+      <script src="/ckeditor/ckeditor.js"></script>
+      <script>
+     let data =  CKEDITOR.replace("text",{
+       filebrowserUploadUrl: "/auth/uploadimagearticle"
+     })
+     
+$("#create").click(function(e){
+          
+       
+
+          const form = new FormData();
+        let file = $("#img-article")[0].files;
+        
+        
+        if (file.length > 0) {
+        
+            form.append('title', $("#title").val())
+            form.append('text', data.getData())       
+            form.append('description', $("#description").val())   
+            form.append('articleavatar', file[0])
+         
+        console.log(file)
+            $.ajax({
+                type: "POST",
+                url: "/auth/creatarticle",
+                data: form,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                 
+                    $("#img").attr("src",`/img/articleimg/${response.img}` )
+                    $("#alert2").removeClass("dis-none").html(`created successfully`)
+           setTimeout(()=>{
+           window.location.href="http://localhost:3000/dashboard"
+           },2000)
+                },
+                error: function(err) {
+                  $("#alert").removeClass("dis-none").html(`${err.responseJSON.err}`)
+           setTimeout(()=>{
+            $("#alert").addClass("dis-none")
+           },3000)
+                }
+            });
+        
+        }else{
+          $("#alert").removeClass("dis-none").html(`you must be add image for your article`)
+           setTimeout(()=>{
+            $("#alert").addClass("dis-none")
+           },3000)
+        }
+//         }) -->
+// $("#create").click(function(){
+//   let myDataArray = $("#form").serializeArray();
+//     let myData = {}
+//     $.map(myDataArray, function(n,i){
+//       myData[n['name']] = n['value'];
+//   })
+
+//     $.ajax({
+//         type:'post',
+//         url:"/auth/creatarticle",
+//         data: {
+//           title : myData.title,
+//           description : myData.description,
+//           text: data.getData()
+//         },
+//         success:(data =>{
+//      window.location.href = "http://localhost:3000/dashboard";
+//         }),
+//         error:((err) =>{
+//           let error = JSON.parse(err.responseText);
+//   console.log(error.errors)
+
+//              $("#alert").removeClass("dis-none").html(error.errors[0].msg)
+
+//         })
+//     })
+
+// // console.log(data.getData().split('src="'))
+ })
+      </script>
+</body>
+</html>
+
+<!-- 
+$("#button").click(function(e){
+          
+       
+
+  const form = new FormData();
+let file = $("#img-article")[0].files;
+
+
+if (file.length > 0) {
+
+    form.append('title', $("#title").val())
+    form.append('text', $("#text").val())       
+    form.append('description', $("#description").val())   
+    form.append('article', file[0])
+ 
+console.log(file)
+    $.ajax({
+        type: "POST",
+        url: "/auth/creatarticle",
+        data: form,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+         
+            $("#img").attr("src",`/img/articleimg/${response.img}` )
+            $("#alert2").removeClass("dis-none").html(`created successfully`)
+   setTimeout(()=>{
+   window.location.href="http://localhost:3000/dashboard"
+   },2000)
+        },
+        error: function(err) {
+          $("#alert").removeClass("dis-none").html(`${err.responseJSON.err}`)
+   setTimeout(()=>{
+    $("#alert").addClass("dis-none")
+   },3000)
+        }
+    });
+
+}else{
+  $("#alert").removeClass("dis-none").html(`you must be add image for your article`)
+   setTimeout(()=>{
+    $("#alert").addClass("dis-none")
+   },3000)
+}
+}) -->

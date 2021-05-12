@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+    <style>
+             body{
+            background-image: linear-gradient(to right, #ff5722 , #ff9800 );
+        }
+        .custom-nav a{
+               color: #ff5722 !important;
+               font-style: italic;
+        }
+        .custom-nav a:hover{
+            color: #ff9800  !important;
+       
+        }
+        .content{
+            width: 600px;
+            height: auto;
+            background-color: white;
+            margin: 30px auto;
+            text-align: center;
+            overflow: hidden;
+
+        }
+        .h3{
+            margin: 30px;
+        }
+        form{
+            padding: 40px;
+        }
+        form input{
+           margin-bottom: 30px;
+          
+        }
+        form input[type="text"], input[type="email"], input[type="password"]{
+            border: none;
+            border-bottom: 1px solid black;
+            font-style: italic;
+
+        }
+        .ppass{
+            font-style: italic;
+            color: #727271;
+        }
+        .passs{
+            font-style: normal;
+            color: #1911c0;
+            text-decoration: underline;
+        }
+        .passs:hover{
+            cursor: pointer;
+        }
+        .ba{
+            background-color: rgb(224, 55, 55);
+            color: aliceblue;
+        }
+        .myModal{
+            background-image: linear-gradient(to right, #ff5722 , #ff9800 ) !important;
+        } 
+   
+.dis-none{
+  display: none;
+}
+#userAvatar{
+margin-top:10px; 
+width:180px; 
+height:180px;
+border-radius:50%
+}
+.upload{
+  border: none;
+  outline: none;
+  background-color: rgb(38, 38, 160);
+  color: white;
+  border-radius: 6px;
+
+}
+.upload:hover{
+   background-color: rgb(132, 132, 223);
+}
+    </style>
+    <title>update</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav custom-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard">back to profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="/auth/logout" id="logout">logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container">
+             <div class="content">
+               <img src="<% if (user.avatar) {%>
+                          /img/avatar/<%= user.avatar %>
+               <% }else { %>
+                /img/avatar/defult.png
+               <% } %>     
+                " alt=""  id="userAvatar" />
+               <form action="/auth/updateAvatar" method="post" enctype="multipart/form-data">
+                <input type="file" name="avatar" />
+                <input type="submit" value="add avatar" class="upload"/>
+              </form>
+                 <h3 class="h3">Update Profile</h3>
+                <form action="/auth/updateUser" method="post" class="register-form" novalidate>
+                    <div class="from-group">
+                        <input type="text" class="form-control" value="<%= user.firstName %>" name="firstName">
+                    </div>
+                    <div class="from-group">
+                       <input type="text" class="form-control" value="<%= user.lastName %>" name="lastName">
+                   </div>
+                   <div class="from-group">
+                       <input type="text" class="form-control" value="<%= user.userName %>" name="userName">
+                   </div>
+                   <div class="from-group">
+                       <input type="email" class="form-control" value="<%= user.email %>" name="email">
+                   </div>
+                   <div class="from-group">
+                       <input type="text" class="form-control" value="<%= user.phone %>" name="phone">
+                   </div>
+                 <p class="ppass">If you want to update your password  <span type="button" class="passs" data-toggle="modal" data-target="#myModal">Click here</span></p>
+                   <div class="from-group">
+                       <input type="submit" class="btn btn-primary" value="Update">
+                   </div>
+                                <% if (errors.length > 0)  {%>
+                                      <div class="alert alert-warning alert-dismissible fade show ba" role="alert">
+                                          <%= errors[0] %>
+     
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                </div>
+                                <% } %>             <div class="my-alert ">
+                         
+                </div>
+   
+                </form>
+                         
+             </div>
+      </div>
+      
+<div class="container">
+
+
+  
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content myModal">
+     
+     
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+          <form action="/auth/updatePassword" method="post" class="register-form" novalidate id="updatePassword">
+            <div class="from-group">
+                <input type="password" class="form-control modalinput" placeholder="password" name="password">
+            </div>
+            <div class="from-group">
+               <input type="password" class="form-control modalinput" placeholder="repeat password" name="password2">
+           </div>
+    
+        
+           <div class="from-group">
+               <input type="submit" class="btn btn-primary" value="Update">
+           </div>
+           <div class="alert alert-warning dis-none" role="alert" id="alert" > 
+
+          </div>
+          <div class="alert alert-success dis-none" role="alert" id="alert2">
+        
+          </div>
+                 
+        </div>
+
+        </form>
+        </div>
+      
+        
+      </div>
+    </div>
+    
+  </div>
+  
+      <script>
+        $("#logout").click(function(){
+                let result = confirm("Are you sure you want to log out?");
+
+                if(!result) {
+                     return;
+                }
+        })
+        $("#updatePassword").submit(function(e){
+            e.preventDefault()
+            let myDataArray = $(this).serializeArray();
+            let data = {}
+            $.map(myDataArray, function(n,i){
+                data[n['name']] = n['value'];
+          })
+        if ( data.password.trim() !== data.password2.trim() ){
+           $("#alert").removeClass("dis-none").html("your passwords is not match");
+           setTimeout(()=>{
+            $("#alert").addClass("dis-none")
+           },2000)
+           return
+        }
+
+            $.ajax({
+                type:'post',
+                url:"/auth/updatePassword",
+                data: {
+                password : data.password
+                  },
+                success:(data =>{
+                  $("#alert2").removeClass("dis-none").html(`password updated successfully`)
+           setTimeout(()=>{
+            window.location.href = "http://localhost:3000/dashboard/owner/update"
+           },2000)
+                }),
+                error:((err) =>{
+                  $("#alert").removeClass("dis-none").html(`${err.responseJSON.err}`)
+           setTimeout(()=>{
+            $("#alert").addClass("dis-none")
+           },2000)
+           return
+                })
+            })
+        })
+      </script>
+</body>
+</html>
